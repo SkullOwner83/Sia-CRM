@@ -1,21 +1,3 @@
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.exe
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.deps.json
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.runtimeconfig.json
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.dll
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.pdb
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.csproj.AssemblyReference.cache
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia_CRM.Properties.Resources.resources
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\SiaCRM.window_services.resources
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.csproj.GenerateResource.cache
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.AssemblyInfoInputs.cache
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.AssemblyInfo.cs
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.csproj.CoreCompileInputs.cache
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.dll
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\refint\Sia CRM.dll
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.pdb
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.genruntimeconfig.cache
-C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\ref\Sia CRM.dll
 D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.exe
 D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.deps.json
 D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.runtimeconfig.json
@@ -23,7 +5,6 @@ D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia 
 D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.pdb
 D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.csproj.AssemblyReference.cache
 D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia_CRM.Properties.Resources.resources
-D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\SiaCRM.window_services.resources
 D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.csproj.GenerateResource.cache
 D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.GeneratedMSBuildEditorConfig.editorconfig
 D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.AssemblyInfoInputs.cache
@@ -34,3 +15,22 @@ D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\refi
 D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.pdb
 D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.genruntimeconfig.cache
 D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\ref\Sia CRM.dll
+D:\Desktop\Proyectos\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\SiaCRM.WindowServices.resources
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.exe
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.deps.json
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.runtimeconfig.json
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.dll
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\bin\Debug\net6.0-windows\Sia CRM.pdb
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.csproj.AssemblyReference.cache
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia_CRM.Properties.Resources.resources
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\SiaCRM.WindowServices.resources
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.csproj.GenerateResource.cache
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.AssemblyInfoInputs.cache
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.AssemblyInfo.cs
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.csproj.CoreCompileInputs.cache
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.dll
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\refint\Sia CRM.dll
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.pdb
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\Sia CRM.genruntimeconfig.cache
+C:\Users\DELL Sia\Desktop\SIA\Visual Studio\Sia CRM\Sia CRM\obj\Debug\net6.0-windows\ref\Sia CRM.dll
