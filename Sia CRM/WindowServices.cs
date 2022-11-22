@@ -7,7 +7,9 @@ namespace SiaCRM
 {
     public partial class WindowServices : Form
 	{		
+		int Index;
 		bool ModifyService = false;
+		Service ServiceToModify = new Service();
 		List<Service> ServicesList = new List<Service>();
 
         public WindowServices()
@@ -32,11 +34,25 @@ namespace SiaCRM
 
 				case "BtnModify":
 					//FALTA Validar si se tiene un elemento seleccionado
-						ModifyService = true;
+					//Search in services list the selected services listview
+					foreach(var Object in ServicesList)
+					{
+						if (Convert.ToString(Object.Folio) == Convert.ToString(BxServices.SelectedItems[0].SubItems[0].Text))
+						{
+							Index = ServicesList.IndexOf(Object);
+							ServiceToModify = Object;
+							ModifyService = true;
+						} 
+					}
+
+					if (ModifyService == true)
+					{
+						TbxFolio.Text = Convert.ToString(ServiceToModify.Folio);
+						TbxCustomerNumber.Text = Convert.ToString(ServiceToModify.Customer);
+						TbxCustomerName.Text = ServiceToModify.Name;
+						TbxAdmissionDate.Text = ServiceToModify.AdmissionDate;
 						Function.LockControls(this);
-						TbxFolio.Text = Convert.ToString(BxServices.SelectedItems[0].SubItems[0].Text);
-						TbxCustomerName.Text = Convert.ToString(BxServices.SelectedItems[0].SubItems[1].Text);
-						TbxAdmissionDate.Text = Convert.ToString(BxServices.SelectedItems[0].SubItems[2].Text);
+					}
 				break;
 
 				case "BtnDelete":
@@ -61,25 +77,32 @@ namespace SiaCRM
 							NewService.Name = TbxCustomerName.Text;
 							NewService.AdmissionDate = TbxAdmissionDate.Text;
 							NewService.DeliveryDate = TbxDeliveryDate.Text;
-							ServicesList.Add(NewService);
-
-							//Refresh data in listview with service instance list
-							BxServices.Items.Clear();
-
-							foreach(var Object in ServicesList)
-							{
-								ListViewItem Item = new ListViewItem();
-								Item = BxServices.Items.Add(Convert.ToString(Object.Folio));
-								Item.SubItems.Add(Convert.ToString(Object.Name));
-								Item.SubItems.Add(Object.AdmissionDate);
-							}
+							ServicesList.Add(NewService);							
 						}
 						else
 						{
+							ServiceToModify.Folio = Convert.ToInt32(TbxFolio.Text);
+							ServiceToModify.Customer = Convert.ToInt32(TbxCustomerNumber.Text);
+							ServiceToModify.Name = TbxCustomerName.Text;
+							ServiceToModify.AdmissionDate = TbxAdmissionDate.Text;
+							ServiceToModify.DeliveryDate = TbxDeliveryDate.Text;
+							ServicesList.RemoveAt(Index);
+							ServicesList.Insert(Index,ServiceToModify);
 
-							BxServices.SelectedItems[0].SubItems[0].Text = TbxFolio.Text;
+							/*BxServices.SelectedItems[0].SubItems[0].Text = TbxFolio.Text;
 							BxServices.SelectedItems[0].SubItems[1].Text = TbxCustomerName.Text;
-							BxServices.SelectedItems[0].SubItems[2].Text = TbxAdmissionDate.Text;
+							BxServices.SelectedItems[0].SubItems[2].Text = TbxAdmissionDate.Text;*/
+						}
+
+						//Refresh data in listview with service instance list
+						BxServices.Items.Clear();
+
+						foreach(var Object in ServicesList)
+						{
+							ListViewItem Item = new ListViewItem();
+							Item = BxServices.Items.Add(Convert.ToString(Object.Folio));
+							Item.SubItems.Add(Convert.ToString(Object.Name));
+							Item.SubItems.Add(Object.AdmissionDate);
 						}
 
 						Function.LockControls(this);
@@ -94,6 +117,7 @@ namespace SiaCRM
 					Function.ClearTextBox(this);
 					Function.LockControls(this);
 					ModifyService = false;
+					//Index = null;
 				break;
 			}
 		}
@@ -109,6 +133,25 @@ namespace SiaCRM
 				TbxDeliveryDate.Text = ThisDay.ToString("d");
 			}
 		}
-		
+
+		//Validate only numeric inputs by his ASCII code range
+		private void OnlyNumericInputs(object Sender, KeyPressEventArgs e)
+		{
+			if ((e.KeyChar >= 32 && e.KeyChar <= 47) || (e.KeyChar >= 58 && e.KeyChar <= 255))
+			{
+				e.Handled = true;
+				return;
+			}
+		}
+
+		//Validate only alphabet inputs by his ASCII code range
+		public static void OnlyAlphabetInputs(object Sender, KeyPressEventArgs e)
+		{
+			if ((e.KeyChar >= 33 && e.KeyChar <= 64) || (e.KeyChar >= 91 && e.KeyChar <= 96) || (e.KeyChar >= 123 && e.KeyChar <= 255))
+			{
+				e.Handled = true;
+				return;
+			}
+		}
 	}
 }

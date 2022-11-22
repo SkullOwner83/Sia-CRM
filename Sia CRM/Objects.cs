@@ -14,5 +14,6 @@
 		public string AdmissionDate { get; set; }
 		public string DeliveryDate { get; set; }
 		public string Status { get; set; }
+		public string Diagnostic { get; set; }
 	}
 }

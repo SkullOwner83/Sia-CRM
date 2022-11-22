@@ -134,6 +134,7 @@
             this.columnHeader2,
             this.columnHeader3});
 			this.BxServices.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.BxServices.FullRowSelect = true;
 			this.BxServices.Location = new System.Drawing.Point(52, 76);
 			this.BxServices.MultiSelect = false;
 			this.BxServices.Name = "BxServices";
@@ -197,6 +198,7 @@
 			this.TbxFolio.ReadOnly = true;
 			this.TbxFolio.Size = new System.Drawing.Size(112, 26);
 			this.TbxFolio.TabIndex = 1;
+			this.TbxFolio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnlyNumericInputs);
 			// 
 			// LblName
 			// 
@@ -235,6 +237,7 @@
 			this.TbxCustomerNumber.ReadOnly = true;
 			this.TbxCustomerNumber.Size = new System.Drawing.Size(112, 26);
 			this.TbxCustomerNumber.TabIndex = 2;
+			this.TbxCustomerNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnlyNumericInputs);
 			// 
 			// LblFolio
 			// 
