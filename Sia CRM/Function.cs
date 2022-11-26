@@ -1,9 +1,35 @@
-﻿using System.Windows.Forms;
+﻿using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 
 namespace SiaCRM
 {
     public class Function
     {
+        public static List<Control> FormGetControls(Form Window, Control ControlsToGet)
+        {
+            List<Control> ControlsObtained = new List<Control>();
+
+			foreach (Control Object in Window.Controls)
+			{
+                switch (ControlsToGet)
+                {
+                    case TextBox:
+						if (Object is TextBox)
+							ControlsObtained.Add(Object);
+                            Object.Text = "Holi";
+					break;
+
+                    case Button:
+						if (Object is Button)
+						{
+							ControlsObtained.Add(Object);
+						}
+					break;
+                }
+			}
+			return ControlsObtained;
+        }
+
         //Clear string of all textbox
         public static void ClearTextBox(Form Window)
         {

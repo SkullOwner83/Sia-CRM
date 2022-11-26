@@ -1,7 +1,5 @@
-using System.ComponentModel.DataAnnotations;
 using System.Media;
-using System.Xml.Linq;
-using Sia_CRM;
+using System.IO;
 
 namespace SiaCRM
 {
@@ -10,12 +8,78 @@ namespace SiaCRM
 		int Index;
 		bool ModifyService = false;
 		Service ServiceToModify = new Service();
+		Service ServiceSelected = new Service();
 		List<Service> ServicesList = new List<Service>();
 
         public WindowServices()
         {
             InitializeComponent();
         }
+
+		private void WindowLoad(object sender, EventArgs e)
+		{
+			this.MinimumSize = new Size(this.Width, this.Height);
+			BxServices.AllowColumnReorder = true;
+
+			//Load data if database file exists
+			if (File.Exists("Database.dll"))
+			{
+				StreamReader LoadData = new StreamReader("Database.dll");
+				string? LineRead, Line;
+
+				do
+				{
+					//Save the current line reading and set data if is not null
+					LineRead = LoadData.ReadLine();
+					
+					
+					if (LineRead != null)
+					{
+						Line = Data.DecryptMD5(LineRead);
+
+						//Create one instance for each line reading and save into service list
+						Service ServiceLoading = new Service();
+						var Index = 0;
+
+						foreach (char Digit in Line)
+						{
+							//Read each character and concatenate them into their property
+							if (Digit == ',')
+							{
+								Index += 1;
+								continue;
+							}
+
+							switch (Index)
+							{
+								case 0: ServiceLoading.Folio += Digit; break; //Da problema porque esta concadenando un caracter a una propiedad integer
+								case 1: ServiceLoading.Customer += Digit; break; //mismo problema de arriba
+								case 2: ServiceLoading.Name += Digit; break;
+								case 3: ServiceLoading.AdmissionDate += Digit; break;
+								case 4: ServiceLoading.DeliveryDate += Digit; break;
+								case 5: ServiceLoading.Diagnostic += Digit; break;
+							}
+						}
+
+						ServicesList.Add(ServiceLoading);
+					}
+				}
+				while(LineRead != null);
+
+				//Refresh data in listview with instances in service list
+				BxServices.Items.Clear();
+
+				foreach(var Object in ServicesList)
+				{
+					ListViewItem Item = new ListViewItem();
+					Item = BxServices.Items.Add(Convert.ToString(Object.Folio));
+					Item.SubItems.Add(Convert.ToString(Object.Name));
+					Item.SubItems.Add(Object.AdmissionDate);
+				}
+
+				LoadData.Close();
+			}
+		}
 
 		private void ButtonClicked(object Sender, EventArgs e)
 		{
@@ -26,36 +90,45 @@ namespace SiaCRM
 				case "BtnNewService":
 					Function.ClearTextBox(this);
 					Function.LockControls(this);
+					TbxDiagnostic.Text = "";
+					TbxProblem.Text = "";
 					DateTime ThisDay = DateTime.Today;
-					TbxAdmissionDate.Text = ThisDay.ToString("d");
+					TbxAdmissionDate.Text = Convert.ToString(ThisDay.ToShortDateString());
 					BxStatus.SelectedIndex = 0;
 					BxServicesDetails.SelectedTab = BxProblemPage;
 				break;
 
 				case "BtnModify":
-					//FALTA Validar si se tiene un elemento seleccionado
-					//Search in services list the selected services listview
-					foreach(var Object in ServicesList)
+					//Search in services list the selected items in listview
+					if (BxServices.SelectedIndices.Count > 0)
 					{
-						if (Convert.ToString(Object.Folio) == Convert.ToString(BxServices.SelectedItems[0].SubItems[0].Text))
+						foreach (var Object in ServicesList)
 						{
-							Index = ServicesList.IndexOf(Object);
-							ServiceToModify = Object;
-							ModifyService = true;
-						} 
-					}
+							if (Convert.ToString(Object.Folio) == Convert.ToString(BxServices.SelectedItems[0].SubItems[0].Text))
+							{
+								Index = ServicesList.IndexOf(Object);
+								ServiceToModify = Object;
+								ModifyService = true;
+							}
+						}
 
-					if (ModifyService == true)
+						if (ModifyService == true)
+						{
+							TbxFolio.Text = Convert.ToString(ServiceToModify.Folio);
+							TbxCustomerNumber.Text = Convert.ToString(ServiceToModify.Customer);
+							TbxCustomerName.Text = ServiceToModify.Name;
+							TbxAdmissionDate.Text = ServiceToModify.AdmissionDate;
+							Function.LockControls(this);
+						}
+					}
+					else
 					{
-						TbxFolio.Text = Convert.ToString(ServiceToModify.Folio);
-						TbxCustomerNumber.Text = Convert.ToString(ServiceToModify.Customer);
-						TbxCustomerName.Text = ServiceToModify.Name;
-						TbxAdmissionDate.Text = ServiceToModify.AdmissionDate;
-						Function.LockControls(this);
+						MessageBox.Show("Selecciona un servicio a modificar.");
 					}
 				break;
 
 				case "BtnDelete":
+					//Delete selected items in view list
 					SystemSounds.Exclamation.Play();
 
 					foreach (ListViewItem ServicesSelected in BxServices.SelectedItems)
@@ -77,10 +150,18 @@ namespace SiaCRM
 							NewService.Name = TbxCustomerName.Text;
 							NewService.AdmissionDate = TbxAdmissionDate.Text;
 							NewService.DeliveryDate = TbxDeliveryDate.Text;
-							ServicesList.Add(NewService);							
+							NewService.Diagnostic = TbxDiagnostic.Text;
+							ServicesList.Add(NewService);	
+							
+							//Save data one text file
+							StreamWriter DataBase = new StreamWriter("Database.dll", true);
+							string Message = Data.EncryptMD5(NewService.Folio + "," + NewService.Customer + "," + NewService.Name + "," + NewService.AdmissionDate + "," + NewService.DeliveryDate + "," + NewService.Diagnostic);
+							DataBase.WriteLine(Message);
+							DataBase.Close();
 						}
 						else
 						{
+							//Replace service selected with a new instane in service list
 							ServiceToModify.Folio = Convert.ToInt32(TbxFolio.Text);
 							ServiceToModify.Customer = Convert.ToInt32(TbxCustomerNumber.Text);
 							ServiceToModify.Name = TbxCustomerName.Text;
@@ -88,13 +169,10 @@ namespace SiaCRM
 							ServiceToModify.DeliveryDate = TbxDeliveryDate.Text;
 							ServicesList.RemoveAt(Index);
 							ServicesList.Insert(Index,ServiceToModify);
-
-							/*BxServices.SelectedItems[0].SubItems[0].Text = TbxFolio.Text;
-							BxServices.SelectedItems[0].SubItems[1].Text = TbxCustomerName.Text;
-							BxServices.SelectedItems[0].SubItems[2].Text = TbxAdmissionDate.Text;*/
+							ModifyService = false;
 						}
 
-						//Refresh data in listview with service instance list
+						//Refresh data in listview with instances in service list
 						BxServices.Items.Clear();
 
 						foreach(var Object in ServicesList)
@@ -105,6 +183,8 @@ namespace SiaCRM
 							Item.SubItems.Add(Object.AdmissionDate);
 						}
 
+						TbxDiagnostic.ReadOnly = TbxDiagnostic.ReadOnly!;
+						TbxProblem.ReadOnly = TbxProblem.ReadOnly!;
 						Function.LockControls(this);
 					}
 					else
@@ -116,6 +196,8 @@ namespace SiaCRM
 				case "BtnCancel":
 					Function.ClearTextBox(this);
 					Function.LockControls(this);
+					TbxDiagnostic.Text = "";
+					TbxProblem.Text= "";
 					ModifyService = false;
 					//Index = null;
 				break;
@@ -123,10 +205,10 @@ namespace SiaCRM
 		}
 
 		//Set the current date to select delivery status
-		private void BxStatus_SelectedIndexChanged(object Sender, EventArgs e)
+		private void SelectStatus(object Sender, EventArgs e)
 		{
 			int Index = BxStatus.SelectedIndex;
-
+			
 			if (Convert.ToString(BxStatus.Items[Index]) == "Entregado")
 			{
 				DateTime ThisDay = DateTime.Today;
@@ -134,23 +216,47 @@ namespace SiaCRM
 			}
 		}
 
-		//Validate only numeric inputs by his ASCII code range
-		private void OnlyNumericInputs(object Sender, KeyPressEventArgs e)
+		private void SelecteServicesIListView(object sender, EventArgs e)
 		{
-			if ((e.KeyChar >= 32 && e.KeyChar <= 47) || (e.KeyChar >= 58 && e.KeyChar <= 255))
+			if (ModifyService == false)
 			{
-				e.Handled = true;
-				return;
+				if (BxServices.SelectedItems.Count > 0)
+				{
+					//Get the selected services in service list through your folio
+					foreach (var Object in ServicesList)
+					{
+						if (Convert.ToString(Object.Folio) == Convert.ToString(BxServices.SelectedItems[0].SubItems[0].Text))
+						{
+							Index = ServicesList.IndexOf(Object);
+							ServiceSelected = Object;
+						}
+					}
+
+					//Set the data of service selected in the form
+					TbxFolio.Text = Convert.ToString(ServiceSelected.Folio);
+					TbxCustomerNumber.Text = Convert.ToString(ServiceSelected.Customer);
+					TbxCustomerName.Text = ServiceSelected.Name;
+					TbxAdmissionDate.Text = ServiceSelected.AdmissionDate;
+					TbxDiagnostic.Text = ServiceSelected.Diagnostic;
+				}
 			}
+
+			/*
+			bool Lock = (BxServices.SelectedIndices.Count > 0);
+			BtnModify.Enabled = Lock;
+			BtnDelete.Enabled = Lock;
+			*/
 		}
 
-		//Validate only alphabet inputs by his ASCII code range
-		public static void OnlyAlphabetInputs(object Sender, KeyPressEventArgs e)
+		
+		private void ValidateInput(object Sender, KeyPressEventArgs Key)
 		{
-			if ((e.KeyChar >= 33 && e.KeyChar <= 64) || (e.KeyChar >= 91 && e.KeyChar <= 96) || (e.KeyChar >= 123 && e.KeyChar <= 255))
+			var TxtBox = (TextBox)Sender;
+
+			switch(TxtBox.Tag)
 			{
-				e.Handled = true;
-				return;
+				case "Numeric": Key.Handled = Data.OnlyNumeric(Key.KeyChar); break;
+				case "Alphabet": Key.Handled = Data.OnlyAlphabet(Key.KeyChar); break;
 			}
 		}
 	}

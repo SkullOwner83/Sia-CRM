@@ -35,9 +35,9 @@
 			this.BtnModify = new System.Windows.Forms.Button();
 			this.BtnNewService = new System.Windows.Forms.Button();
 			this.BxServices = new System.Windows.Forms.ListView();
-			this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
-			this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+			this.ListViewFolioColumn = new System.Windows.Forms.ColumnHeader();
+			this.ListViewNameColumn = new System.Windows.Forms.ColumnHeader();
+			this.ListViewAdmissionColumn = new System.Windows.Forms.ColumnHeader();
 			this.LblStatus = new System.Windows.Forms.Label();
 			this.TbxDeliveryDate = new System.Windows.Forms.TextBox();
 			this.LblCustomer = new System.Windows.Forms.Label();
@@ -69,6 +69,7 @@
 			this.BtnAcept.Name = "BtnAcept";
 			this.BtnAcept.Size = new System.Drawing.Size(89, 33);
 			this.BtnAcept.TabIndex = 5;
+			this.BtnAcept.Tag = "Lockable";
 			this.BtnAcept.Text = "Aceptar";
 			this.BtnAcept.UseVisualStyleBackColor = true;
 			this.BtnAcept.Click += new System.EventHandler(this.ButtonClicked);
@@ -81,6 +82,7 @@
 			this.BtnCancel.Name = "BtnCancel";
 			this.BtnCancel.Size = new System.Drawing.Size(89, 33);
 			this.BtnCancel.TabIndex = 6;
+			this.BtnCancel.Tag = "Lockable";
 			this.BtnCancel.Text = "Cancelar";
 			this.BtnCancel.UseVisualStyleBackColor = true;
 			this.BtnCancel.Click += new System.EventHandler(this.ButtonClicked);
@@ -122,41 +124,45 @@
 			this.BtnNewService.Name = "BtnNewService";
 			this.BtnNewService.Size = new System.Drawing.Size(89, 33);
 			this.BtnNewService.TabIndex = 21;
+			this.BtnNewService.Tag = "Lockable";
 			this.BtnNewService.Text = "Nuevo";
 			this.BtnNewService.UseVisualStyleBackColor = true;
 			this.BtnNewService.Click += new System.EventHandler(this.ButtonClicked);
 			// 
 			// BxServices
 			// 
+			this.BxServices.Activation = System.Windows.Forms.ItemActivation.OneClick;
 			this.BxServices.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.BxServices.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3});
+            this.ListViewFolioColumn,
+            this.ListViewNameColumn,
+            this.ListViewAdmissionColumn});
 			this.BxServices.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
 			this.BxServices.FullRowSelect = true;
 			this.BxServices.Location = new System.Drawing.Point(52, 76);
 			this.BxServices.MultiSelect = false;
 			this.BxServices.Name = "BxServices";
+			this.BxServices.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.BxServices.Size = new System.Drawing.Size(509, 148);
 			this.BxServices.TabIndex = 22;
 			this.BxServices.UseCompatibleStateImageBehavior = false;
 			this.BxServices.View = System.Windows.Forms.View.Details;
+			this.BxServices.SelectedIndexChanged += new System.EventHandler(this.SelecteServicesIListView);
 			// 
-			// columnHeader1
+			// ListViewFolioColumn
 			// 
-			this.columnHeader1.Text = "Folio";
-			this.columnHeader1.Width = 100;
+			this.ListViewFolioColumn.Text = "Folio";
+			this.ListViewFolioColumn.Width = 100;
 			// 
-			// columnHeader2
+			// ListViewNameColumn
 			// 
-			this.columnHeader2.Text = "Nombre";
-			this.columnHeader2.Width = 300;
+			this.ListViewNameColumn.Text = "Nombre";
+			this.ListViewNameColumn.Width = 300;
 			// 
-			// columnHeader3
+			// ListViewAdmissionColumn
 			// 
-			this.columnHeader3.Text = "Fecha";
-			this.columnHeader3.Width = 100;
+			this.ListViewAdmissionColumn.Text = "Fecha";
+			this.ListViewAdmissionColumn.Width = 100;
 			// 
 			// LblStatus
 			// 
@@ -198,7 +204,8 @@
 			this.TbxFolio.ReadOnly = true;
 			this.TbxFolio.Size = new System.Drawing.Size(112, 26);
 			this.TbxFolio.TabIndex = 1;
-			this.TbxFolio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnlyNumericInputs);
+			this.TbxFolio.Tag = "Numeric";
+			this.TbxFolio.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ValidateInput);
 			// 
 			// LblName
 			// 
@@ -226,7 +233,7 @@
 			this.BxStatus.Name = "BxStatus";
 			this.BxStatus.Size = new System.Drawing.Size(112, 26);
 			this.BxStatus.TabIndex = 9;
-			this.BxStatus.SelectedIndexChanged += new System.EventHandler(this.BxStatus_SelectedIndexChanged);
+			this.BxStatus.SelectedIndexChanged += new System.EventHandler(this.SelectStatus);
 			// 
 			// TbxCustomerNumber
 			// 
@@ -237,7 +244,8 @@
 			this.TbxCustomerNumber.ReadOnly = true;
 			this.TbxCustomerNumber.Size = new System.Drawing.Size(112, 26);
 			this.TbxCustomerNumber.TabIndex = 2;
-			this.TbxCustomerNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnlyNumericInputs);
+			this.TbxCustomerNumber.Tag = "Numeric";
+			this.TbxCustomerNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ValidateInput);
 			// 
 			// LblFolio
 			// 
@@ -278,6 +286,8 @@
 			this.TbxCustomerName.ReadOnly = true;
 			this.TbxCustomerName.Size = new System.Drawing.Size(425, 26);
 			this.TbxCustomerName.TabIndex = 3;
+			this.TbxCustomerName.Tag = "Alphabet";
+			this.TbxCustomerName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.ValidateInput);
 			// 
 			// LblDeliveryDate
 			// 
@@ -389,6 +399,7 @@
 			this.Name = "WindowServices";
 			this.ShowIcon = false;
 			this.Text = "Servicios";
+			this.Load += new System.EventHandler(this.WindowLoad);
 			this.BxServicesDetails.ResumeLayout(false);
 			this.BxDiagnosticPage.ResumeLayout(false);
 			this.BxDiagnosticPage.PerformLayout();
@@ -426,9 +437,9 @@
 		private TabPage BxProblemPage;
 		private TextBox TbxDiagnostic;
 		private TextBox TbxProblem;
-		private ColumnHeader columnHeader1;
-		private ColumnHeader columnHeader2;
-		private ColumnHeader columnHeader3;
+		private ColumnHeader ListViewFolioColumn;
+		private ColumnHeader ListViewNameColumn;
+		private ColumnHeader ListViewAdmissionColumn;
 		private Button BtnDelete;
 	}
 }
